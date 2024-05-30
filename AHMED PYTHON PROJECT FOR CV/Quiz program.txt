@@ -1,0 +1,54 @@
+#dictionaries that stores questions and answers
+#have a variable that tracks score of the player
+#loop through the dictionary using the key value pairs
+#display each question to the user and allow them to answer
+#tell them if they are right or wrong
+#show the final result when quiz is completed
+
+quiz = {
+    "question 1":{
+        "question":"What is the capital of france?",
+        "answer":"paris"
+    },
+    "question 2":{
+        "question":"What is the capital of germany?",
+        "answer":"Berlin"
+    },
+    "question 3":{
+        "question":"What is the capital of italy",
+        "answer":"Rome"
+    },
+    "question 4": {
+        "question": "What is the capital of spain",
+        "answer": "madrid"
+    },
+    "question 5": {
+        "question": "What is the capital of portugal",
+        "answer": "lisbon"
+    },
+    "question 6": {
+        "question": "What is the capital of switzerland",
+        "answer": "bern"
+    },
+    "question 7": {
+        "question": "What is the capital of Austria",
+        "answer": "vienna"
+    },
+
+}
+
+score = 0
+for key, value in quiz.items():
+    print(value["question"])
+    answer = input("Enter your answer: " )
+
+    if answer.lower() == value["answer"].lower():
+        print("Correct")
+        score = score + 1
+        print("Your score is " + str(score))
+    else:
+        print("Wrong!")
+        print("The correct answer: " + value['answer'])
+        print("Your score is: " + str(score))
+print("You got: "+str(score)+"score")
+print("Your percentage: "+ str(int(score/7*100))+"%")

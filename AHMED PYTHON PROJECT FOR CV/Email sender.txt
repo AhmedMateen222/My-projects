@@ -1,0 +1,52 @@
+Step 1. Enable 2 step verification
+Step 2. Generate app password
+Step 3. write this code:-
+from email.message import EmailMessage
+#This line imports the EmailMessage class from the email.message module. This class is used to create and manipulate email messages in Python.
+import ssl
+#This line imports the ssl module, which provides support for SSL (Secure Sockets Layer) encryption. It will be used later for creating a secure connection to the email server.
+import smtplib
+#This line imports the smtplib module, which provides a simple way to send email messages using the Simple Mail Transfer Protocol (SMTP).
+
+email_sender = "ahmedmateen1326@gmail.com"
+email_password = "(app password that you just generated in step 2)"
+#These two lines define variables email_sender and email_password, which store the email address and password of the sender's email account, respectively. These will be used to authenticate and authorize the sender while sending the email.
+
+email_receiver = "anuamzeeshan@gmail.com"
+subject = "Ahmed messaged you using python"
+body = """
+This is the message test to see if it is received by you
+"""
+#These lines define variables email_receiver, subject, and body, which store the email address of the receiver, the subject of the email, and the body/content of the email, respectively. Modify these variables as needed for your specific use case.
+
+em = EmailMessage()
+#These lines define variables email_receiver, subject, and body, which store the email address of the receiver, the subject of the email, and the body/content of the email, respectively. Modify these variables as needed for your specific use case.
+
+em["From"] = email_sender
+em["To"] = email_receiver
+em["Subject"] = subject
+#These lines define variables email_receiver, subject, and body, which store the email address of the receiver, the subject of the email, and the body/content of the email, respectively. Modify these variables as needed for your specific use case.
+
+em.set_content(body)
+#This line sets the content/body of the email by assigning the value of the body variable to the content field of the em object.
+
+context = ssl.create_default_context()
+#This line creates a default SSL context using the create_default_context() function from the ssl module. This context will be used later when establishing a secure connection with the email server.
+
+with smtplib.SMTP_SSL('smtp.gmail.com', 465, context= context) as smtp:
+#This line sets up a secure connection to the Gmail SMTP server using the SMTP_SSL class from the smtplib module.
+#'smtp.gmail.com' represents the hostname of the Gmail SMTP server.
+#465 is the port number for SSL/TLS encrypted communication with the server.
+#context=context specifies the SSL context created earlier to establish a secure connection.
+#The with statement is used to ensure that the connection is properly closed after sending the email, even if an exception occurs.
+
+    smtp.login(email_sender, email_password)
+#This line logs in to the SMTP server using the provided email address (email_sender) and password (email_password).
+#It authenticates the sender's email account to authorize them to send emails via the server.
+
+    smtp.sendmail(email_sender, email_receiver, em.as_string())
+#This line sends the email message constructed earlier (em) using the SMTP server.
+#email_sender represents the sender's email address.
+#email_receiver represents the recipient's email address.
+#em.as_string() converts the EmailMessage object (em) into a string representation required by the sendmail() method.
+#The method sends the email from the sender to the receiver.
